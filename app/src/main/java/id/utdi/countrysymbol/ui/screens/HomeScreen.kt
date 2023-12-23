@@ -1,5 +1,7 @@
+// Package yang menyimpan kelas-kelas terkait tampilan layar utama aplikasi Country Symbol
 package id.utdi.countrysymbol.ui.screens
 
+// Mengimpor pustaka-pustaka yang diperlukan untuk membuat UI dengan Compose
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +33,7 @@ import coil.request.ImageRequest
 import id.utdi.countrysymbol.R
 import id.utdi.countrysymbol.model.Symbol
 
+// Fungsi komposabel untuk menampilkan layar utama aplikasi
 @Composable
 fun HomeScreen(
     symbolUiState: SymbolUiState,
@@ -38,6 +41,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
+    // Menentukan tampilan berdasarkan state UI
     when (symbolUiState) {
         is SymbolUiState.Loading -> LoadingScreen(modifier.size(200.dp))
         is SymbolUiState.Success ->
@@ -55,8 +59,10 @@ fun HomeScreen(
     }
 }
 
+// Fungsi komposabel untuk menampilkan layar loading
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
+    // Menampilkan gambar loading
     Image(
         painter = painterResource(R.drawable.loading_img),
         contentDescription = "Loading",
@@ -64,8 +70,10 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
     )
 }
 
+// Fungsi komposabel untuk menampilkan layar error
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+    // Menampilkan pesan error dan tombol "Coba Lagi"
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -78,8 +86,10 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
     }
 }
 
+// Fungsi komposabel untuk menampilkan kartu simbol
 @Composable
 fun SymbolCard(symbol: Symbol, modifier: Modifier = Modifier) {
+    // Menampilkan kartu dengan judul dan gambar simbol
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp)
@@ -109,12 +119,14 @@ fun SymbolCard(symbol: Symbol, modifier: Modifier = Modifier) {
     }
 }
 
+// Fungsi komposabel untuk menampilkan daftar simbol
 @Composable
 private fun SymbolListScreen(
     symbol: List<Symbol>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
+    // Menampilkan daftar simbol dengan menggunakan LazyColumn
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding,
@@ -126,6 +138,7 @@ private fun SymbolListScreen(
                 sym.title
             }
         ) { symbol ->
+            // Menampilkan kartu simbol untuk setiap item dalam daftar
             SymbolCard(symbol = symbol, modifier = Modifier.fillMaxSize())
         }
     }
